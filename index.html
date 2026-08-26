@@ -193,9 +193,10 @@
             align-items: center;
             justify-content: space-between;
             gap: 60px;
-            padding: 40px 0 70px;
+            padding: 40px 0 20px; /* reduzido para dar espaço à faixa */
             flex-wrap: wrap;
             border-bottom: 1px solid rgba(255, 107, 0, 0.05);
+            position: relative;
         }
 
         .hero-content {
@@ -307,6 +308,8 @@
             box-shadow: 0 30px 60px rgba(0,0,0,0.6);
             border: 2px solid rgba(255, 107, 0, 0.08);
             transition: all 0.4s;
+            display: block; /* garante que não haja espaço extra */
+            margin: 0 auto;
             background: transparent;
             mask-image: radial-gradient(ellipse at center, black 65%, transparent 90%);
             -webkit-mask-image: radial-gradient(ellipse at center, black 65%, transparent 90%);
@@ -314,6 +317,63 @@
         .hero-image img:hover {
             border-color: rgba(255, 107, 0, 0.3);
             transform: scale(1.02);
+        }
+
+        /* ===== NOVA FAIXA ROLANTE (AGORA FORA DA .hero-image) ===== */
+        .hero-scrolling-wrapper {
+            width: 100%;
+            overflow: hidden;
+            background: rgba(255, 255, 255, 0.02);
+            border-top: 1px solid rgba(255, 107, 0, 0.06);
+            border-bottom: 1px solid rgba(255, 107, 0, 0.06);
+            padding: 12px 0;
+            white-space: nowrap;
+            position: relative;
+            backdrop-filter: blur(4px);
+            border-radius: 60px;
+            margin-top: 20px;
+            /* Forçamos a ocupar toda a largura e ficar abaixo da imagem */
+            grid-column: 1 / -1; /* se usarmos grid, mas aqui usamos flex */
+        }
+
+        .scrolling-text {
+            display: inline-block;
+            animation: scroll-left 24s linear infinite;
+            padding-left: 100%;
+        }
+
+        .scrolling-text span {
+            margin: 0 28px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #b0a89a;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: color 0.3s;
+        }
+        .scrolling-text span:hover {
+            color: #FF6B00;
+        }
+
+        .scrolling-text .icon {
+            margin-right: 4px;
+        }
+
+        @keyframes scroll-left {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-100%); }
+        }
+
+        /* Ajuste no modo claro */
+        body.light-mode .hero-scrolling-wrapper {
+            background: rgba(0, 0, 0, 0.03);
+            border-color: rgba(0, 0, 0, 0.06);
+        }
+        body.light-mode .scrolling-text span {
+            color: #4a3a2a;
+        }
+        body.light-mode .scrolling-text span:hover {
+            color: #9D0208;
         }
 
         /* ===== STATS ===== */
@@ -651,7 +711,7 @@
             .hero {
                 flex-direction: column;
                 text-align: center;
-                padding: 30px 0 50px;
+                padding: 30px 0 10px;
             }
             .hero-content h1 {
                 font-size: 3.2rem;
@@ -665,6 +725,16 @@
 
             .hero-image img {
                 max-width: 280px;
+            }
+
+            /* Ajuste na faixa rolante em mobile */
+            .scrolling-text span {
+                font-size: 0.9rem;
+                margin: 0 16px;
+            }
+            .hero-scrolling-wrapper {
+                padding: 8px 0;
+                margin-top: 12px;
             }
 
             .stats {
@@ -719,6 +789,10 @@
             .cards-grid { grid-template-columns: 1fr; }
             .service-card, .plan-card { padding: 28px 20px; }
             .hero-image img { max-width: 220px; }
+            .scrolling-text span {
+                font-size: 0.75rem;
+                margin: 0 12px;
+            }
         }
 
         /* ===== LIGHT MODE OVERRIDES ===== */
@@ -788,7 +862,29 @@
                 </div>
             </div>
             <div class="hero-image fade-right">
-                <img src="mt.png" alt="Matheus Odilon" onerror="this.src='https://via.placeholder.com/400x450?text=Matheus+Odilon'">
+                <img src="mt.png" alt="Matheus Odilon" onerror="this.src='https://placehold.co/400x450?text=Matheus+Odilon'">
+            </div>
+            <!-- FAIXA ROLANTE AGORA FORA DA .hero-image, mas ainda dentro da .hero -->
+            <div class="hero-scrolling-wrapper">
+                <div class="scrolling-text">
+                    <span><span class="icon">💪</span> Hipertrofia</span>
+                    <span><span class="icon">🔥</span> Emagrecimento</span>
+                    <span><span class="icon">🏋️</span> Treinos</span>
+                    <span><span class="icon">📋</span> Consultoria</span>
+                    <span><span class="icon">🥗</span> Nutrição</span>
+                    <span><span class="icon">🧘</span> Mobilidade</span>
+                    <span><span class="icon">⚡</span> Performance</span>
+                    <span><span class="icon">🎯</span> Resultados</span>
+                    <!-- Duplicado para efeito contínuo -->
+                    <span><span class="icon">💪</span> Hipertrofia</span>
+                    <span><span class="icon">🔥</span> Emagrecimento</span>
+                    <span><span class="icon">🏋️</span> Treinos</span>
+                    <span><span class="icon">📋</span> Consultoria</span>
+                    <span><span class="icon">🥗</span> Nutrição</span>
+                    <span><span class="icon">🧘</span> Mobilidade</span>
+                    <span><span class="icon">⚡</span> Performance</span>
+                    <span><span class="icon">🎯</span> Resultados</span>
+                </div>
             </div>
         </section>
 
